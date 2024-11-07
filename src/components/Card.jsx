@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom'
-const Card = ({ coffee }) => {
+import { Link, useLocation } from 'react-router-dom'
+import { FaTrashAlt } from 'react-icons/fa'
+
+const Card = ({ coffee, handleRemove }) => {
+  const { pathname } = useLocation()
   const { name, image, category, origin, type, id, rating, popularity } =
     coffee || {}
 
@@ -21,20 +24,16 @@ const Card = ({ coffee }) => {
           <p>Popular: {popularity}</p>
         </div>
       </Link>
+      {pathname === '/dashboard' && (
+        <div
+          onClick={() => handleRemove(id)}
+          className='absolute p-3 rounded-full cursor-pointer bg-warning -top-5 -right-5'
+        >
+          <FaTrashAlt size={20} />
+        </div>
+      )}
     </div>
   )
 }
 
-export default Card;
-
-
-// const Card = ({coffee}) => {
-//     const { name, image, category, origin, type, id, rating, popularity } = coffee || {};
-//     return (
-//         <div>
-//             {name}
-//         </div>
-//     );
-// };
-
-// export default Card;
+export default Card
